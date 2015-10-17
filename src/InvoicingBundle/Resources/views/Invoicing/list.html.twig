@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'InvoicingBundle' %}
+
+{% block metaTitle %}Invoices{% endblock %}
+{% block pageTitle %}Invoices{% endblock %}
+{% block body %}
+
+    <div class="actions">
+      <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" href={{ path('createInvoice') }}>New invoice</a>
+    </div>
+
+    <br />
+
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+      <thead>
+        <tr>
+          <th>
+            Id
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            Seller
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            Deptor
+          </th>
+          <th class="mdl-data-table__cell--non-numeric">
+            Statut
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for invoice in invoices %}
+          <tr>
+            <td>
+              <a href={{ path('invoiceDetails', {'id': invoice.id}) }}>{{invoice.id}}</a>
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              {{invoice.seller.email}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              {{invoice.debtor.email}}
+            </td>
+            <td class="mdl-data-table__cell--non-numeric">
+              {{ invoice.approvedBy is empty ? 'Not approved' : 'Approved' }}
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td>
+              No invoice yet
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% endblock %}

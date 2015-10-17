@@ -1,0 +1,9 @@
+"php-debug":
+  {
+    ServerPort: 8000
+    PathMaps: [
+      {
+        local: "C:\\websites\\invoicing-app2"
+      }
+    ]
+  }

@@ -1,0 +1,3 @@
+invoicing_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: InvoicingBundle:Default:index }

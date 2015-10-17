@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}New invoice{% endblock %}
+{% block pageTitle %}<a href="{{ path('invoiceList') }}">Invoices</a> / New{% endblock %}
+{% block body %}
+
+  <div id="invoice-form">
+    {{ form_start(form) }}
+      {{ form_widget(form) }}
+    {{ form_end(form) }}
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+  invoicingModule.invoiceFormCtrl(document.getElementById('invoice-form'))
+</script>
+{% endblock %}

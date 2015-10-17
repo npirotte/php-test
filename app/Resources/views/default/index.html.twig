@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}Welcome{% endblock %}
+{% block pageTitle %}Invoicing App{% endblock %}
+{% block body %}
+<h1>Welcome</h1>
+
+<p>
+  <a href="{{ path('createInvoice') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">Submit a new invoice</a>
+</p>
+
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+<p>
+  <a href="{{ path('invoiceList') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">Invoices list</a>
+</p>
+{% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

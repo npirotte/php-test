@@ -1,0 +1,11 @@
+{% if user %}
+  <button id="user-menu" class="mdl-button mdl-js-button">
+    Logged as {{ user.username}}
+  </button>
+  <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu"
+      for="user-menu">
+    <li class="mdl-menu__item"><a href="{{ path('fos_user_security_logout') }}">Logoff</a></li>
+  </ul>
+{% else %}
+<a href="{{ path('fos_user_security_login') }}">Login</a>
+{% endif %}

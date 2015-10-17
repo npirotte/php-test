@@ -1,0 +1,4 @@
+services:
+    incoicing.email_scheduler:
+        class: InvoicingBundle\Services\EmailScheduler
+#        arguments: [@service_id, "plain_value", %parameter%]

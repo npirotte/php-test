@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'InvoicingBundle' %}
+
+{% block metaTitle %}Invoice {{ invoice.id }}{% endblock %}
+{% block pageTitle %}<a href="{{ path('invoiceList') }}">Invoices</a> / {{ invoice.id }}{% endblock %}
+{% block body %}
+
+<div id="invoice-details" class="demo-card-square mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title mdl-card--expand">
+    <h2 class="mdl-card__title-text">Invoice {{ invoice.id }}</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    Ref : {{ invoice.reference }} <br />
+    Amount : € {{ invoice.amount }} <br />
+    Due date : {{ invoice.dueDate|date("m/d/Y") }} <br />
+    Seller: <a href="mailto:{{ invoice.seller.email }}">{{ invoice.seller.email }}</a> <br />
+    Deptor: <a href="mailto:{{ invoice.debtor.email }}">{{ invoice.debtor.email }}</a> <br />
+    {% if invoice.approvedOn %}
+    <hr />
+    Approved on : {{ invoice.approvedOn|date("m/d/Y H:i") }} <br />
+    A confirmation email will be send on : {{ invoice.sendEmailOn|date("m/d/Y H:i") }}
+    {% endif %}
+  </div>
+  {% if not invoice.approvedBy %}
+  <div class="mdl-card__actions mdl-card--border">
+    <a href="{{ path('approveInvoice', {'id': invoice.id}) }}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      Approve
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block metaTitle %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="{{ asset('components/material-design-lite/material.min.css') }}" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}" media="screen" charset="utf-8">
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <script type="text/javascript">
+          window.config = {
+            base: "{{ app.request.getSchemeAndHttpHost() }}"
+          }
+        </script>
+    </head>
+    <body>
+      <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+        <header class="mdl-layout__header">
+          <div class="mdl-layout__header-row">
+            <h1 class="mdl-layout-title">{% block pageTitle %}Invoices{% endblock %}</h1>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
+              {{ render(controller('AppBundle:UserWidgets:currentUserWidget', {})) }}
+            </nav>
+          </div>
+        </header>
+
+        <main class="mdl-layout__content">
+          <div class="mdl-layout__content-row">
+            <div class="page-content">
+
+              {% for flashMessage in app.session.flashbag.get("notice") %}
+                  <p>
+                      {{ flashMessage }}
+                  </p>
+              {% endfor %}
+              
+              {% block body %}{% endblock %}
+            </div>
+          </div>
+        </main>
+
+      </div>
+
+        <script src="{{ asset('components/material-design-lite/material.min.js') }}" charset="utf-8"></script>
+        <script src="{{ asset('components/jQuery/dist/jquery.min.js') }}" charset="utf-8"></script>
+        <script src="{{ asset('components/typeahead.js/dist/typeahead.bundle.js') }}" charset="utf-8"></script>
+        <script src="{{ asset('scripts/build.js') }}" charset="utf-8"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

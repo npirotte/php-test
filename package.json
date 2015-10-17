@@ -1,0 +1,17 @@
+{
+  "name": "invoicing-app2",
+  "version": "1.0.0",
+  "description": "invoicing-app2 ==============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^1.6.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-concat": "^2.6.0"
+  }
+}
