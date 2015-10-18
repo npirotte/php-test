@@ -7,7 +7,7 @@ A Symfony project created on October 12, 2015, 8:38 pm.
 
 ## Run the project
 
-* in a cmd tool, run "bower install", "php composer.phar install" to install front and backend dependencies
+In a cmd tool, run "bower install", "php composer.phar install" to install front and backend dependencies
 
 ## Build asset
 
