@@ -3,6 +3,13 @@ invoicing-app2
 
 A Symfony project created on October 12, 2015, 8:38 pm.
 
+# Demo
+
+A demo is running at http://demo.npirotte.be/
+
+Username : test@test.be
+password : test1234
+
 # Instructions
 
 ## Run the project
