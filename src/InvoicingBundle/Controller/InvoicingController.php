@@ -26,6 +26,7 @@ class InvoicingController extends Controller
     $form = $this->createForm(new InvoiceType(), $invoice, array('attr' => array('autocomplete' => 'off' )));
     $form->handleRequest($request);
 
+    // request handling
     if ($form->isValid())
     {
         $doctrine = $this->getDoctrine();
@@ -57,9 +58,9 @@ class InvoicingController extends Controller
         $em->flush();
 
         // set flash message
-        $this->get('session')->getFlashBag()->add('notice', "You succefully introduce an invoice ! An confirmation email will be send after an administrator approved the invoice.");
+        $this->get('session')->getFlashBag()->add('notice', "You successfully introduced an invoice ! A confirmation email will be sent after an administrator approved the invoice.");
 
-        // handle different redirect when user is an admin
+        // handle different redirect route when user is an admin
         $user = $this->getUser();
         if ($user)
         {

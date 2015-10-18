@@ -1,6 +1,5 @@
 <?php
 namespace InvoicingBundle\Services;
-use InvoicingBundle\Services\HolidaysCalendar;
 
 class EmailScheduler
 {
@@ -12,44 +11,41 @@ class EmailScheduler
 
   private $end;
 
-  public function __construct() {
-    $am = array('09:00:00', '12:00:00');
-    $pm = array('13:30:00', '17:00:00');
-    $classicDay = array($am, $pm);
+  private $holidaysCalendar;
 
-    $this->timeTable = array(
-      array(), // sunday
-      $classicDay, // monday
-      $classicDay, // thuesday
-      $classicDay, // wedesday
-      $classicDay, //thurday
-      $classicDay, // friday
-      array(), // saturday
-    );
-
-    $this->timeExclusions = array(
-      array(), // sunday
-      $am, // monday
-      array(), // thuesday
-      array(), // wedesday
-      array(), //thurday
-      $pm, // friday
-      array(), // saturday
-    );
+  /**
+    * @param array $timeTable, array $timeExclusions
+    */
+  public function __construct($timeTable, $timeExclusions, $holidaysCalendar) {
+    $this->timeTable = $timeTable;
+    $this->timeExclusions = $timeExclusions;
+    $this->holidaysCalendar = $holidaysCalendar;
   }
 
+  /**
+    * Get a scheduled date based on a given date
+    * @param \DateTime, \DateInterval
+    * @return \DateTime
+    *
+    */
   public function getSendDate(\DateTime $approvingDate, \DateInterval $delay)
   {
     $this->delay = $delay;
     $this->end = false;
 
-    $date = $this->recurce($approvingDate);
+    $date = $this->recurse($approvingDate);
 
     return $date;
     //return $approvingDate;
   }
 
-  private function recurce(\DateTime $approvingDate)
+  /**
+    * Main recursive handle
+    * @param \DateTime
+    * @return \DateTime
+    *
+    */
+  private function recurse(\DateTime $approvingDate)
   {
     $currentDay = intval($approvingDate->format('w'));
     $dayTimeTable = $this->timeTable[$currentDay];
@@ -68,11 +64,12 @@ class EmailScheduler
     else
     {
       // no work today, see you tomorow !
+      $approvingDate->setTime(0, 0, 0);
       $approvingDate->modify('+ 1 day');
     }
 
     if(!$this->end) {
-      return $this->recurce($approvingDate);
+      return $this->recurse($approvingDate);
     }
 
     // catch exeptions
@@ -85,6 +82,7 @@ class EmailScheduler
   }
 
   /**
+    * Dispatch between mornig and afternoon
     * @param DateTime array
     * @return DateTime
     */
@@ -116,6 +114,7 @@ class EmailScheduler
   }
 
   /**
+    * Handle haf a day period
     * @param DateTime array
     * @return DateTime
     */
@@ -151,6 +150,7 @@ class EmailScheduler
   }
 
   /**
+    * Handle dorbiden periods (monday morning...)
     * @param DateTime
     * @return DateTime
     */
@@ -171,7 +171,7 @@ class EmailScheduler
         $approvingDate->setTime($newTime[0], $newTime[1] + 1);
 
         // try again until we get a valid date
-        $approvingDate = $this->recurce($approvingDate);
+        $approvingDate = $this->recurse($approvingDate);
       }
     }
 
@@ -181,13 +181,11 @@ class EmailScheduler
 
   /**
     * Check if the date is in a Holidays period
-    *
     * @param DateTime
     * @return DateTime
     */
   public function handleHolidays(\DateTime $approvingDate) {
-    $holidaysCalendar = new HolidaysCalendar('C:/websites/invoicing-app2/data/Holidays.ics');
-    $periods = $holidaysCalendar->getEventsPeriod();
+    $periods = $this->holidaysCalendar->getEventsPeriod();
     $hasChanged = false;
 
     foreach ($periods as $period) {
@@ -202,7 +200,7 @@ class EmailScheduler
     // if date has change, redo the all test
     if($hasChanged)
     {
-        $approvingDate = $this->recurce($approvingDate);
+        $approvingDate = $this->recurse($approvingDate);
     }
 
     return $approvingDate;

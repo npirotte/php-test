@@ -11,7 +11,7 @@
   </div>
   <div class="mdl-card__supporting-text">
     Ref : {{ invoice.reference }} <br />
-    Amount : € {{ invoice.amount }} <br />
+    Amount : € {{ invoice.amount|number_format }} <br />
     Due date : {{ invoice.dueDate|date("m/d/Y") }} <br />
     Seller: <a href="mailto:{{ invoice.seller.email }}">{{ invoice.seller.email }}</a> <br />
     Deptor: <a href="mailto:{{ invoice.debtor.email }}">{{ invoice.debtor.email }}</a> <br />
