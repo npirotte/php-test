@@ -11,7 +11,7 @@ In a cmd tool, run "bower install", "php composer.phar install" to install front
 
 ## Build asset
 
-Asset are built with gulp, so you have to install node, npm and gulp globaly, the install dependencies with "npm install" cmd, then run the "gulp" command
+Assets are built with gulp, so you have to install node, npm and gulp globaly, the install dependencies with "npm install" cmd, then run the "gulp" command
 
 ## Unit testing
 
