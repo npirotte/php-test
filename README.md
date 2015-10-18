@@ -24,3 +24,8 @@ To execute tests juste run "phpunit -c app src/InvoicingBundle/Tests/
 The front user the material-lite framework for a nice and fresh theme. (http://www.getmdl.io/)
 
 Autocomplete use the twitter typeahead plugin (https://github.com/twitter/typeahead.js)
+
+# EmailScheduler
+
+A iCal calendar is saved in /data/Holidays.ics
+An holiday period starts on 12/24/2015 and ends on 31/24/2015
