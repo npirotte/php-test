@@ -1,4 +1,4 @@
-invoicing-app2
+invoicing-app
 ==============
 
 A Symfony project created on October 12, 2015, 8:38 pm.
